@@ -1,18 +1,38 @@
 <!doctype html>
 <!--
-TODO: This is a comment. Change this header comment to describe the 
-web page and include your name as author.
+This web page allows users to draw shapes on a canvas by clicking and dragging the mouse.
+Author: Your Name
 -->
 <html>
 
 <head>
     <meta charset="utf-8">
-    <title>TODO: Title Goes Here</title>
+    <title>Canvas Assignment</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <p>TODO: Content goes here.</p>
-    <p>changes</p>
+    <h1>Draw Here!</h1>
+    <canvas id="canvas" width="800" height="600"></canvas>
+    
+    <div>
+        <label for="shape">Shape:</label>
+        <select id="shape">
+            <option value="circle">Circle</option>
+            <option value="square">Square</option>
+            <option value="triangle">Triangle</option>
+        </select>
+        
+        <label for="size">Size:</label>
+        <input type="number" id="size" value="50">
+        
+        <label for="color">Color:</label>
+        <input type="color" id="color" value="#ff0000">
+        
+        <button id="helpButton">Help</button>
+    </div>
+    
+    <script src="script.js"></script>
 </body>
 
 </html>
