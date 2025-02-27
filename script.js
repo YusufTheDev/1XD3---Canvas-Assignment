@@ -63,7 +63,7 @@ window.addEventListener('load', function() {
     const helpButton = document.getElementById('helpButton');
 
     helpButton.addEventListener('click', function() {
-        alert('To draw a shape, select the shape type, size, and color, then click on the canvas and press C for circle, S for square, or T for triangle.');
+        alert('To draw a shape, select the shape type, size, and color, then click on the canvas.');
     });
 
     canvas.addEventListener('click', function(e) {
@@ -75,22 +75,21 @@ window.addEventListener('load', function() {
         let green = parseInt(color.slice(3, 5), 16);
         let blue = parseInt(color.slice(5, 7), 16);
 
-        document.addEventListener('keydown', function(event) {
-            let shape;
-            switch (event.key.toLowerCase()) {
-                case 'c':
-                    shape = new Circle(size, red, green, blue, mouseX, mouseY);
-                    break;
-                case 's':
-                    shape = new Square(size, red, green, blue, mouseX, mouseY);
-                    break;
-                case 't':
-                    shape = new Triangle(size, red, green, blue, mouseX, mouseY);
-                    break;
-            }
-            if (shape) {
-                shape.draw(ctx);
-            }
-        }, { once: true });
+        let shapeType = shapeSelect.value;
+        let shape;
+        switch (shapeType) {
+            case 'circle':
+                shape = new Circle(size, red, green, blue, mouseX, mouseY);
+                break;
+            case 'square':
+                shape = new Square(size, red, green, blue, mouseX, mouseY);
+                break;
+            case 'triangle':
+                shape = new Triangle(size, red, green, blue, mouseX, mouseY);
+                break;
+        }
+        if (shape) {
+            shape.draw(ctx);
+        }
     });
 });
