@@ -13,25 +13,39 @@ Author: Your Name
 
 <body>
     <h1>Draw Here!</h1>
-    <canvas id="canvas" width="800" height="600"></canvas>
-    
+    <canvas id="canvas" width="700" height="500"></canvas>
+
     <div>
-        <label for="shape">Shape:</label>
-        <select id="shape">
-            <option value="circle">Circle</option>
-            <option value="square">Square</option>
-            <option value="triangle">Triangle</option>
-        </select>
-        
-        <label for="size">Size:</label>
-        <input type="number" id="size" value="50">
-        
-        <label for="color">Color:</label>
-        <input type="color" id="color" value="#ff0000">
-        
-        <button id="helpButton">Help</button>
+        <div id="selectors">
+            <div id="shapeselector">
+                <label for="shape">Shape:</label>
+                <select id="shape">
+                    <option value="circle">Circle</option>
+                    <option value="square">Square</option>
+                    <option value="triangle">Triangle</option>
+                </select>
+            </div>
+            <div id="sizeselector">
+                <label for="size">Size:</label>
+                <input type="number" id="size" value="50">
+            </div>
+            <div id="colorselector">
+                <label for="color">Color:</label>
+                <input type="color" id="color" value="#ff0000">
+            </div>
+        </div>
+        <div id="buttons">
+            <button id="clearButton">Clear</button>
+            <button id="helpButton">Help</button>
+            <button id="undoButton">Undo</button>
+        </div>
     </div>
-    
+    <div id="helptext">
+        <p>Click on the canvas to draw shapes at the position of your mouse. Use the selectors to change the shape,
+            size, and color of the shapes. Click the Clear button to clear the canvas. Click the Undo button to undo
+            the last shape drawn.</p>
+    </div>
+
     <script src="script.js"></script>
 </body>
 

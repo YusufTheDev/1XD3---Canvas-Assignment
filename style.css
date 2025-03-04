@@ -18,6 +18,19 @@ canvas {
     margin-bottom: 20px;
 }
 
+#selectors, #buttons {
+    display: flex;
+    flex-direction: row; /* Ensure horizontal layout */
+    justify-content: space-between;
+    width: 100%;
+    max-width: 800px;
+    margin-bottom: 10px;
+}
+
+#selectors > div, #buttons > button {
+    margin-right: 10px;
+}
+
 div {
     display: flex;
     flex-direction: column;
@@ -25,11 +38,10 @@ div {
 }
 
 label {
-    margin: 5px 0;
+    margin-right: 5px;
 }
 
 input, select, button {
-    margin: 5px 0;
     padding: 5px;
     font-size: 16px;
 }
@@ -43,4 +55,12 @@ button {
 
 button:hover {
     background-color: #555;
+}
+
+#helptext{
+    margin-top: 20px;
+    font-size: 14px;
+    color: #555;
+    max-width: 500px;
+    display: none;
 }
