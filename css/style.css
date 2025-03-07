@@ -1,0 +1,130 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 2rem;
+}
+
+/* Main layout container */
+#content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap; /* Allows wrapping on smaller screens */
+}
+
+/* Canvas styling */
+canvas {
+    border: 2px solid #333;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Controls layout */
+#selectors {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+#colorselector {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#colorPreview {
+    width: 70px;
+    height: 25px;
+    border: 2px solid #333;
+    border-radius: 5px;
+    background-color: #ff0000; /* Default color */
+}
+
+
+#buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+/* Individual selectors */
+#selectors > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+/* Input and button styles */
+input, select {
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 100px;
+    text-align: center;
+}
+
+button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background-color: #555;
+}
+
+/* Help text styling */
+#helptext {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #555;
+    max-width: 500px;
+    display: none;
+    background: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 900px) {
+    #content {
+        flex-direction: column;
+    }
+
+    #selectors, #buttons {
+        flex-direction: row;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 600px) {
+    #selectors, #buttons {
+        flex-direction: column;
+    }
+}

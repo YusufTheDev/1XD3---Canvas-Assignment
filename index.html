@@ -8,14 +8,13 @@ Author: Your Name
 <head>
     <meta charset="utf-8">
     <title>Canvas Assignment</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
     <h1>Draw Here!</h1>
-    <canvas id="canvas" width="700" height="500"></canvas>
 
-    <div>
+    <div id="content">
         <div id="selectors">
             <div id="shapeselector">
                 <label for="shape">Shape:</label>
@@ -32,8 +31,10 @@ Author: Your Name
             <div id="colorselector">
                 <label for="color">Color:</label>
                 <input type="color" id="color" value="#ff0000">
+                <div id="colorPreview"></div>
             </div>
         </div>
+        <canvas id="canvas" width="700" height="500"></canvas>
         <div id="buttons">
             <button id="clearButton">Clear</button>
             <button id="helpButton">Help</button>
@@ -46,7 +47,7 @@ Author: Your Name
             the last shape drawn.</p>
     </div>
 
-    <script src="script.js"></script>
+    <script src="js/script.js"></script>
 </body>
 
 </html>

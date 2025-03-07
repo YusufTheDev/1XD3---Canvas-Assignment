@@ -1,5 +1,5 @@
-window.addEventListener('load', function() {
-    
+window.addEventListener('load', function () {
+
     class Circle {
         constructor(radius, red, green, blue, x, y) {
             this.radius = radius;
@@ -9,7 +9,7 @@ window.addEventListener('load', function() {
             this.x = x;
             this.y = y;
         }
-        
+
         draw(ctx) {
             ctx.fillStyle = `rgb(${this.red}, ${this.green}, ${this.blue})`;
             ctx.beginPath();
@@ -20,41 +20,41 @@ window.addEventListener('load', function() {
 
     class Square {
         constructor(length, red, green, blue, x, y) {
-            this.length = length * 2;
+            this.length = length;
             this.red = red;
             this.green = green;
             this.blue = blue;
             this.x = x;
             this.y = y;
         }
-        
+
         draw(ctx) {
             ctx.fillStyle = `rgb(${this.red}, ${this.green}, ${this.blue})`;
-            ctx.fillRect(this.x - this.length / 2, this.y - this.length / 2, this.length, this.length);
+            ctx.fillRect(this.x - this.length, this.y - this.length, this.length * 2, this.length * 2);
         }
     }
 
     class Triangle {
         constructor(length, red, green, blue, x, y) {
-            this.length = length * 2;
+            this.length = length;
             this.red = red;
             this.green = green;
             this.blue = blue;
             this.x = x;
             this.y = y;
         }
-        
+
         draw(ctx) {
             ctx.fillStyle = `rgb(${this.red}, ${this.green}, ${this.blue})`;
             ctx.beginPath();
-            ctx.moveTo(this.x, this.y - this.length / 2); // Top vertex
-            ctx.lineTo(this.x - this.length / 2, this.y + this.length / 2); // Bottom left vertex
-            ctx.lineTo(this.x + this.length / 2, this.y + this.length / 2); // Bottom right vertex
+            ctx.moveTo(this.x, this.y - this.length); // Top vertex
+            ctx.lineTo(this.x - this.length, this.y + this.length); // Bottom left vertex
+            ctx.lineTo(this.x + this.length, this.y + this.length); // Bottom right vertex
             ctx.closePath();
             ctx.fill();
         }
     }
-    
+
     let canvas = document.getElementById('canvas');
     let ctx = canvas.getContext('2d');
     let objects = [];
@@ -66,6 +66,10 @@ window.addEventListener('load', function() {
     const clearButton = document.getElementById('clearButton');
     const undoButton = document.getElementById('undoButton');
 
+    colorInput.addEventListener('input', function () {
+        let colorPreview = document.getElementById('colorPreview');
+        colorPreview.style.backgroundColor = colorInput.value;
+    });
     // Load objects from local storage
     if (localStorage.getItem('objects')) {
         objects = JSON.parse(localStorage.getItem('objects')).map(obj => {
@@ -81,7 +85,7 @@ window.addEventListener('load', function() {
         redrawCanvas();
     }
 
-    helpButton.addEventListener('click', function() {
+    helpButton.addEventListener('click', function () {
         let helpText = document.getElementById("helptext");
         if (helpText.style.display === "none" || helpText.style.display === "") {
             helpText.style.display = "block";
@@ -90,19 +94,19 @@ window.addEventListener('load', function() {
         }
     });
 
-    clearButton.addEventListener('click', function() {
+    clearButton.addEventListener('click', function () {
         objects = [];
         saveObjects();
         redrawCanvas();
     });
 
-    undoButton.addEventListener('click', function() {
+    undoButton.addEventListener('click', function () {
         objects.pop();
         saveObjects();
         redrawCanvas();
     });
 
-    canvas.addEventListener('click', function(e) {
+    canvas.addEventListener('click', function (e) {
         let mouseX = e.offsetX;
         let mouseY = e.offsetY;
         let size = parseInt(sizeInput.value);
