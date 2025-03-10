@@ -1,5 +1,13 @@
+/*
+Yusuf Khan 400565596
+Shouheng Fu 400590015
+Mar 09, 2025
+Javasript code for Canvas Assigment, including all the main classes for the drawing options
+*/
+
 window.addEventListener('load', function () {
 
+    // Circle class definition
     class Circle {
         constructor(radius, red, green, blue, x, y) {
             this.radius = radius;
@@ -10,6 +18,7 @@ window.addEventListener('load', function () {
             this.y = y;
         }
 
+        // Method to draw the circle on the canvas
         draw(ctx) {
             ctx.fillStyle = `rgb(${this.red}, ${this.green}, ${this.blue})`;
             ctx.beginPath();
@@ -18,6 +27,7 @@ window.addEventListener('load', function () {
         }
     }
 
+    // Square class definition
     class Square {
         constructor(length, red, green, blue, x, y) {
             this.length = length;
@@ -28,12 +38,14 @@ window.addEventListener('load', function () {
             this.y = y;
         }
 
+        // Method to draw the square on the canvas
         draw(ctx) {
             ctx.fillStyle = `rgb(${this.red}, ${this.green}, ${this.blue})`;
             ctx.fillRect(this.x - this.length, this.y - this.length, this.length * 2, this.length * 2);
         }
     }
 
+    // Triangle class definition
     class Triangle {
         constructor(length, red, green, blue, x, y) {
             this.length = length;
@@ -44,6 +56,7 @@ window.addEventListener('load', function () {
             this.y = y;
         }
 
+        // Method to draw the triangle on the canvas
         draw(ctx) {
             ctx.fillStyle = `rgb(${this.red}, ${this.green}, ${this.blue})`;
             ctx.beginPath();
@@ -54,6 +67,8 @@ window.addEventListener('load', function () {
             ctx.fill();
         }
     }
+
+    // PencilStroke class definition for freehand drawing
     class PencilStroke {
         constructor(points, color, size) {
             this.points = points;
@@ -61,6 +76,7 @@ window.addEventListener('load', function () {
             this.size = size;
         }
 
+        // Method to draw the pencil stroke on the canvas
         draw(ctx) {
             if (this.points.length < 2) return;
             ctx.strokeStyle = this.color;
@@ -76,9 +92,10 @@ window.addEventListener('load', function () {
         }
     }
 
+    // MemeImage class definition for adding images to the canvas
     class MemeImage {
         constructor(x, y, width, height) {
-            this.src = 'Image/unnamed.jpg';
+            this.src = 'images/unnamed.jpg';
             this.x = x;
             this.y = y;
             this.width = width;
@@ -88,20 +105,24 @@ window.addEventListener('load', function () {
             this.image.onload = () => redrawCanvas();
         }
     
+        // Method to draw the image on the canvas
         draw(ctx) {
             if (this.image.complete && this.image.naturalWidth > 0) {
-                ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+                ctx.drawImage(this.image, this.x - this.width / 2, this.y - this.height / 2, this.width, this.height);
             } else {
                 console.error("Image not fully loaded yet: " + this.src);
             }
         }
     }
+
+    // Get the canvas and its 2D context
     let canvas = document.getElementById('canvas');
     let ctx = canvas.getContext('2d');
-    let objects = [];
-    let drawing = false;
-    let currentStroke = null; 
+    let objects = []; // Array to store all drawn objects
+    let drawing = false; // Flag to track if the user is currently drawing
+    let currentStroke = null; // Variable to store the current pencil stroke
 
+    // Get references to various UI elements
     const shapeSelect = document.getElementById('shape');
     const sizeInput = document.getElementById('size');
     const colorInput = document.getElementById('color');
@@ -109,10 +130,13 @@ window.addEventListener('load', function () {
     const clearButton = document.getElementById('clearButton');
     const undoButton = document.getElementById('undoButton');
 
+    // Update the color preview when the color input changes
     colorInput.addEventListener('input', function () {
         let colorPreview = document.getElementById('colorPreview');
         colorPreview.style.backgroundColor = colorInput.value;
     });
+
+    // Handle mouse down event for pencil drawing
     canvas.addEventListener('mousedown', function (e) {
         if (shapeSelect.value === 'pencil') {
             drawing = true;
@@ -121,6 +145,7 @@ window.addEventListener('load', function () {
         }
     });
 
+    // Handle mouse move event for pencil drawing
     canvas.addEventListener('mousemove', function (e) {
         if (drawing && currentStroke) {
             currentStroke.points.push({ x: e.offsetX, y: e.offsetY });
@@ -128,14 +153,14 @@ window.addEventListener('load', function () {
         }
     });
 
+    // Handle mouse up event for pencil drawing
     canvas.addEventListener('mouseup', function () {
         drawing = false;
         currentStroke = null;
         saveObjects();
     });
 
-
-    // Load objects from local storage
+    // Load objects from local storage if they exist
     if (localStorage.getItem('objects')) {
         objects = JSON.parse(localStorage.getItem('objects')).map(obj => {
             switch (obj.type) {
@@ -153,14 +178,19 @@ window.addEventListener('load', function () {
         });
         redrawCanvas();
     }
+
+    // Handle click event for adding meme images
     canvas.addEventListener('click', function (e) {
         if (shapeSelect.value === 'meme') {
-            const meme = new MemeImage(e.offsetX, e.offsetY, 100, 100);
+            let size = parseInt(sizeInput.value);
+            const meme = new MemeImage(e.offsetX, e.offsetY, size * 2, size * 2);
             objects.push(meme);
             saveObjects();
             redrawCanvas();
         }
     });
+
+    // Toggle help text visibility
     helpButton.addEventListener('click', function () {
         let helpText = document.getElementById("helptext");
         if (helpText.style.display === "none" || helpText.style.display === "") {
@@ -170,18 +200,21 @@ window.addEventListener('load', function () {
         }
     });
 
+    // Clear the canvas and remove all objects
     clearButton.addEventListener('click', function () {
         objects = [];
         saveObjects();
         redrawCanvas();
     });
 
+    // Undo the last action by removing the last object
     undoButton.addEventListener('click', function () {
         objects.pop();
         saveObjects();
         redrawCanvas();
     });
 
+    // Handle click event for adding shapes (circle, square, triangle)
     canvas.addEventListener('click', function (e) {
         let mouseX = e.offsetX;
         let mouseY = e.offsetY;
@@ -211,11 +244,13 @@ window.addEventListener('load', function () {
         }
     });
     
+    // Function to redraw all objects on the canvas
     function redrawCanvas() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         objects.forEach(shape => shape.draw(ctx));
     }
 
+    // Function to save the current state of objects to local storage
     function saveObjects() {
         localStorage.setItem('objects', JSON.stringify(objects.map(obj => {
             if (obj instanceof Circle) {
@@ -224,9 +259,9 @@ window.addEventListener('load', function () {
                 return { type: 'square', length: obj.length, red: obj.red, green: obj.green, blue: obj.blue, x: obj.x, y: obj.y };
             } else if (obj instanceof Triangle) {
                 return { type: 'triangle', length: obj.length, red: obj.red, green: obj.green, blue: obj.blue, x: obj.x, y: obj.y };
-            }else if (obj instanceof PencilStroke) {
+            } else if (obj instanceof PencilStroke) {
                 return { type: 'pencil', points: obj.points, color: obj.color, size: obj.size };
-            }else if (obj instanceof MemeImage) {
+            } else if (obj instanceof MemeImage) {
                 return { type: 'meme', x: obj.x, y: obj.y, width: obj.width, height: obj.height };
             }
         })));

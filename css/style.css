@@ -1,3 +1,9 @@
+/*
+Yusuf Khan 400565596
+Shouheng Fu 400590015
+Mar 09, 2025
+Css for canvas assignment
+*/
 body {
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
@@ -21,7 +27,7 @@ h1 {
     align-items: center;
     justify-content: center;
     gap: 20px;
-    flex-wrap: wrap; /* Allows wrapping on smaller screens */
+    flex-wrap: wrap; 
 }
 
 /* Canvas styling */
